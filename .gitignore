@@ -1,0 +1,9 @@
+node_modules/
+release/
+.npm-cache/
+.electron-cache/
+.localappdata/
+.appdata/
+dist/
+*.log
+*.exe

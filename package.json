@@ -1,0 +1,40 @@
+{
+  "name": "rpg-coop-2d",
+  "version": "0.1.1",
+  "private": true,
+  "description": "Protótipo de RPG 2D cooperativo para desktop",
+  "main": "electron/main.cjs",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable",
+    "dist:setup": "electron-builder --win nsis"
+  },
+  "devDependencies": {
+    "electron": "^39.0.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "br.jogo.rpgcoop2d",
+  "productName": "Godfall",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron/**/*",
+      "src/**/*",
+      "package.json"
+    ],
+    "win": {
+      "target": [
+        "portable",
+        "nsis"
+      ]
+    }
+  },
+  "allowScripts": {
+    "electron@39.8.10": true
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  }
+}

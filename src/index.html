@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; media-src 'self';">
+  <title>Godfall</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="title-screen" class="title-screen">
+    <div class="title-atmosphere" aria-hidden="true"><div class="title-sun"></div><div class="title-ridge ridge-far"></div><div class="title-ridge ridge-near"></div></div>
+    <div class="ruin-visual" aria-hidden="true">
+      <svg viewBox="0 0 900 380" role="presentation">
+        <defs>
+          <linearGradient id="ruin-stone" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b39462"/><stop offset=".5" stop-color="#62503b"/><stop offset="1" stop-color="#302820"/></linearGradient>
+          <radialGradient id="ruin-core"><stop stop-color="#e5bf72" stop-opacity=".8"/><stop offset=".35" stop-color="#bd8744" stop-opacity=".25"/><stop offset="1" stop-color="#bd8744" stop-opacity="0"/></radialGradient>
+        </defs>
+        <ellipse cx="450" cy="286" rx="250" ry="72" fill="url(#ruin-core)" class="ruin-pulse"/>
+        <g fill="url(#ruin-stone)" stroke="#211b15" stroke-width="5" opacity=".88">
+          <path d="M175 315V180l-18-17 18-17h112l18 17-18 17v135h-25V190h-62v125z"/>
+          <path d="M583 315V180l-18-17 18-17h112l18 17-18 17v135h-25V190h-62v125z" transform="rotate(5 640 230)"/>
+          <path d="M117 166l56-23 23 26-60 17zM702 147l48-21 22 21-53 20z"/>
+          <path d="M325 313l-13-87 40-48 36 32-22 41 11 62zM500 313l20-75-17-45 39-28 36 48-18 100z"/>
+          <path d="M338 175l22-46 30 26-12 49zM515 178l31-48 20 38-27 39z"/>
+        </g>
+        <path d="M369 192l37-80 43-31 42 37 41 79-42-20-34-42-34 53-32 29z" fill="#473829" stroke="#1d1915" stroke-width="6"/>
+        <path d="M445 92l-13 43 24 16-20 34 25 16-18 43 24 40" fill="none" stroke="#d8ad5f" stroke-width="4" class="ruin-crack"/>
+        <circle cx="456" cy="162" r="7" fill="#e8c578" class="ruin-eye"/>
+        <g fill="#bf9659" class="ruin-shards"><path d="M258 98l15-42 10 48z"/><path d="M640 83l26-34-5 47z"/><path d="M738 227l38-14-28 32z"/><path d="M183 236l-34 23 8-35z"/></g>
+        <path d="M240 318H667" stroke="#aa8855" stroke-width="3" opacity=".55"/>
+        <path d="M275 327l40-9 15 5-24 8zM600 329l34-14 16 4-30 14z" fill="#817052"/>
+      </svg>
+    </div>
+    <div class="title-content">
+      <section class="title-story">
+        <div class="title-kicker"><span class="title-emblem">✦</span> RPG COOPERATIVO • FANTASIA SOMBRIA</div>
+        <h1 class="godfall-logo">GODFALL<span class="logo-cracks" aria-hidden="true">GODFALL</span></h1>
+        <p>Quando os soberanos caírem, as terras enfim serão livres. A resistência começa nos Planaltos.</p>
+        <div class="title-region"><span class="region-pin">◆</span><span><strong>REGIÃO INICIAL</strong><br>Planaltos • Terras da Fortaleza</span></div>
+      </section>
+      <nav class="title-menu" aria-label="Menu principal">
+        <div class="eyebrow">MENU PRINCIPAL</div>
+        <button id="new-game-button" class="menu-option"><span class="menu-number">01</span><span><strong>Nova jornada</strong><small>Criar um personagem</small></span><b aria-hidden="true">›</b></button>
+        <button id="resume-button" class="menu-option" disabled><span class="menu-number">02</span><span><strong id="resume-label">Personagens salvos</strong><small id="resume-hint">Nenhum personagem salvo</small></span><b aria-hidden="true">›</b></button>
+        <button id="settings-button" class="menu-option"><span class="menu-number">03</span><span><strong>Opções</strong><small>Vídeo, áudio e controles</small></span><b aria-hidden="true">›</b></button>
+        <div class="menu-footer"><span>PROTÓTIPO • ACESSO LOCAL</span><span>v0.1</span></div>
+      </nav>
+    </div>
+    <div class="title-bottom"><span>WASD PARA MOVER</span><i></i><span>EXPLORE • LUTE • LIBERTE</span></div>
+  </main>
+
+  <main id="creation-screen" class="screen hidden">
+    <section class="intro">
+      <div class="eyebrow">GODFALL • PLANALTOS</div>
+      <h1>Forje sua<br><span>libertação.</span></h1>
+      <p>Crie seu personagem e lute entre as ruínas deixadas pelos soberanos divinos.</p>
+    </section>
+
+    <section id="creation-panel" class="creation-panel">
+      <div class="panel-heading">
+        <div>
+          <div class="eyebrow">PERSONAGEM</div>
+          <h2>Escolha sua classe</h2>
+        </div>
+        <div id="saved-indicator" class="saved-indicator">Save local</div>
+      </div>
+      <label class="name-label" for="character-name">Nome do personagem</label>
+      <input id="character-name" type="text" name="characterName" tabindex="0" autofocus maxlength="20" placeholder="Digite um nome" autocomplete="off" autocapitalize="words" spellcheck="false">
+      <section class="appearance-panel" aria-labelledby="appearance-heading">
+        <div id="appearance-heading" class="eyebrow">APARÊNCIA</div>
+        <div class="appearance-content">
+          <div class="appearance-grid">
+            <fieldset class="appearance-choice">
+              <legend>Sexo</legend>
+              <div id="gender-options" class="choice-buttons">
+                <button type="button" class="choice-button selected" data-value="masculino" aria-pressed="true">Masculino</button>
+                <button type="button" class="choice-button" data-value="feminino" aria-pressed="false">Feminino</button>
+              </div>
+            </fieldset>
+            <fieldset class="appearance-choice">
+              <legend>Cor da pele</legend>
+              <div id="skin-options" class="swatch-buttons" aria-label="Tons de pele"></div>
+            </fieldset>
+            <fieldset class="appearance-choice">
+              <legend>Cor do cabelo</legend>
+              <div id="hair-options" class="swatch-buttons" aria-label="Cores de cabelo"></div>
+            </fieldset>
+            <label class="beard-choice"><input id="beard-toggle" type="checkbox"><span id="beard-label">Sem barba</span></label>
+          </div>
+          <div class="character-preview-card">
+            <div class="eyebrow">PRÉVIA DO PERSONAGEM</div>
+            <div id="character-preview-stage">
+              <div id="character-preview-canvas" aria-label="Pré-visualização do personagem"></div>
+              <span id="character-preview-empty">Escolha uma classe para ver o personagem</span>
+            </div>
+            <strong id="character-preview-title">Classe não selecionada</strong>
+            <small id="character-preview-subtitle">A prévia muda junto com sua aparência.</small>
+          </div>
+        </div>
+      </section>
+      <div id="saved-characters" class="saved-characters hidden"><div class="eyebrow">PERSONAGENS SALVOS</div><div id="saved-character-list" class="saved-character-list"></div></div>
+      <div id="class-grid" class="class-grid" aria-label="Classes"></div>
+      <div id="class-details" class="class-details"></div>
+      <button id="start-button" class="primary-button" disabled>Entrar nos Planaltos</button>
+      <button id="creation-back-button" class="creation-back-button">Voltar ao menu</button>
+      <p id="form-message" class="form-message" role="status"></p>
+    </section>
+  </main>
+
+  <main id="game-screen" class="game-screen hidden">
+    <header class="game-header">
+      <div><span class="eyebrow">PLANALTOS • ÁREA DE TESTE</span><strong id="hud-name">Viajante</strong></div>
+      <div class="hud-resources">
+        <div class="resource"><span class="resource-icon life-icon" aria-hidden="true">♥</span><div class="resource-details"><span>VIDA</span><div class="bar"><i id="health-bar"></i></div></div><b id="health-value">100 / 100</b></div>
+        <div class="resource"><span class="resource-icon mana-icon" aria-hidden="true">✦</span><div class="resource-details"><span>MANA</span><div class="bar mana"><i id="mana-bar"></i></div></div><b id="mana-value">60 / 60</b></div>
+        <div class="resource"><span class="resource-icon stamina-icon" aria-hidden="true">⚡</span><div class="resource-details"><span>VIGOR</span><div class="bar stamina"><i id="stamina-bar"></i></div></div><b id="stamina-value">100 / 100</b></div>
+      </div>
+      <button id="back-button" class="secondary-button">Menu</button>
+    </header>
+    <section class="game-layout">
+      <div class="canvas-frame"><div id="game-container" aria-label="Área de jogo"></div>
+        <div id="skill-bar" class="skill-bar" aria-label="Habilidades — teclas 1 a 5"></div>
+        <div class="canvas-hint">WASD mover • Shift esquivar • Clique/Espaço atacar • 1–5 habilidades • E pegar item</div>
+      </div>
+      <aside class="side-panel">
+        <div class="eyebrow">PERSONAGEM</div>
+        <h2 id="character-title"></h2>
+        <p id="character-class" class="muted"></p>
+        <div class="level-row"><span>Nível</span><strong id="level-value">1</strong></div>
+        <div class="xp-track"><i id="xp-bar"></i></div>
+        <p id="xp-value" class="muted small">0 / 100 XP</p>
+        <div class="divider"></div>
+        <div class="eyebrow">EQUIPAMENTO</div>
+        <ul class="equipment-list">
+          <li><span class="equipment-icon">◈</span><span>Capacete</span><span>—</span></li><li><span class="equipment-icon">⬡</span><span>Peitoral</span><span>—</span></li>
+          <li><span class="equipment-icon">◇</span><span>Luvas</span><span>—</span></li><li><span class="equipment-icon">⌑</span><span>Botas</span><span>—</span></li><li><span class="equipment-icon">⚔</span><span>Arma</span><span id="weapon-slot">—</span></li>
+        </ul>
+        <div class="divider"></div>
+        <div class="eyebrow">COMBATE</div>
+        <p id="combat-message" class="combat-message">Encontre a patrulha próxima.</p>
+        <button id="save-button" class="secondary-button full-width">Salvar personagem</button>
+      </aside>
+    </section>
+  </main>
+
+  <div id="settings-overlay" class="settings-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <section class="settings-window">
+      <header class="settings-header">
+        <div><div class="eyebrow">CONFIGURAÇÕES</div><h2 id="settings-title">Opções do jogo</h2></div>
+        <button id="settings-close" class="settings-close" aria-label="Fechar opções">×</button>
+      </header>
+      <nav class="settings-tabs" aria-label="Categorias de opções">
+        <button type="button" class="settings-tab active" data-settings-tab="video" aria-pressed="true">Vídeo</button>
+        <button type="button" class="settings-tab" data-settings-tab="audio" aria-pressed="false">Áudio</button>
+        <button type="button" class="settings-tab" data-settings-tab="controls" aria-pressed="false">Controles</button>
+      </nav>
+      <div class="settings-body">
+        <section class="settings-page active" data-settings-page="video">
+          <label class="setting-row"><span><strong>Modo de exibição</strong><small>Escolha entre janela e tela cheia.</small></span><select id="display-mode"><option value="windowed">Janela</option><option value="fullscreen">Tela cheia</option></select></label>
+          <label class="setting-row"><span><strong>Resolução da janela</strong><small>Usada quando o modo janela está ativo.</small></span><select id="window-resolution"><option value="1280x800">1280 × 800</option><option value="1600x900">1600 × 900</option><option value="1920x1080">1920 × 1080</option></select></label>
+          <p class="settings-note">As opções de vídeo são aplicadas imediatamente no Electron.</p>
+        </section>
+        <section class="settings-page" data-settings-page="audio" hidden>
+          <label class="setting-slider"><span><strong>Volume geral</strong><output id="master-volume-value">80%</output></span><input id="master-volume" type="range" min="0" max="100" step="5" value="80"></label>
+          <label class="setting-slider"><span><strong>Efeitos sonoros</strong><output id="effects-volume-value">80%</output></span><input id="effects-volume" type="range" min="0" max="100" step="5" value="80"></label>
+          <label class="setting-slider"><span><strong>Música</strong><output id="music-volume-value">70%</output></span><input id="music-volume" type="range" min="0" max="100" step="5" value="70"></label>
+          <p class="settings-note">A faixa toca em loop no menu e durante a partida. Ajuste o volume aqui.</p>
+        </section>
+        <section class="settings-page" data-settings-page="controls" hidden>
+          <label class="setting-slider"><span><strong>Sensibilidade do mouse</strong><output id="mouse-sensitivity-value">100%</output></span><input id="mouse-sensitivity" type="range" min="50" max="200" step="10" value="100"></label>
+          <p class="settings-note">Clique em “Alterar” e pressione a nova tecla. Esc cancela a captura.</p>
+          <div id="key-bindings" class="key-bindings"></div>
+          <button id="reset-controls" class="reset-controls">Restaurar controles padrão</button>
+          <p id="controls-message" class="settings-note" role="status"></p>
+        </section>
+      </div>
+      <footer class="settings-footer"><span id="settings-save-status">As opções são salvas automaticamente neste computador.</span><button id="settings-done" class="primary-button">Concluído</button></footer>
+    </section>
+  </div>
+
+  <script src="../node_modules/phaser/dist/phaser.js"></script>
+  <script src="classes.js"></script>
+  <script src="vfx-manager.js"></script>
+  <script src="world-scene.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>
